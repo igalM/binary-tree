@@ -1,4 +1,4 @@
-class Node {
+class TreeNode {
     leftNode = null;
     rightNode = null;
 
@@ -46,6 +46,8 @@ class Line {
 
 
 class BTree {
+    nodesArray = [];
+
     constructor() {
         this.createTree();
     }
@@ -58,6 +60,7 @@ class BTree {
     }
 
     add(data) {
+        if (this.nodesArray.find(x => x === data)) return alert('Value already exists!');
         if (this.root) {
             this.recursiveAddNode(this.root, null, null, data);
         } else {
@@ -70,7 +73,7 @@ class BTree {
         if (!node) {
             const xy = coordinates;
             const newNode = this.addAndDisplayNode(xy.cx, xy.cy, 15, this.ctx, data);
-            this.line.draw(prevNode.getX, prevNode.getY, xy.cx, xy.cy, prevNode.getRadius, this.ctx)
+            this.line.draw(prevNode.getX, prevNode.getY, xy.cx, xy.cy, prevNode.getRadius, this.ctx);
             return newNode;
         }
         else {
@@ -85,8 +88,9 @@ class BTree {
     };
 
     addAndDisplayNode(x, y, r, ctx, data) {
-        const node = new Node(x, y, r, ctx, data);
+        const node = new TreeNode(x, y, r, ctx, data);
         node.draw();
+        this.nodesArray.push(node.data);
         return node;
     };
 
